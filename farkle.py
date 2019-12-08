@@ -89,8 +89,9 @@ def scoring_rolls(list):
     roll = list
     total = 0
     length = len(roll)
-    # Check for 6 die combination rolls.
+    
     try:
+        # Check for 6 die combination rolls.
         if length == 6:
             # x6 of any number.
             if roll[0]==roll[1] and roll[0]==roll[2] and roll[0]==roll[3] and roll[0]==roll[4] and roll[0]==roll[5]:
@@ -122,10 +123,14 @@ def scoring_rolls(list):
                 merged_list = [(list1[i],list2[i]) for i in range(0,len(list1))]
                 for a,b in merged_list:
                     total += scores[a][b]
-                    
+        
+        # fix for when a [1,5] is held.
+        if length == 2:
+            if roll[0] == 1 and roll[1] == 5:
+                total += 150
 
         # Checks for all <6 die scoring combinations.
-        elif length > 0 and length <6:
+        elif length <6:
             dup_1 = []
             dup_2 = []
             for die in roll:
@@ -142,7 +147,7 @@ def scoring_rolls(list):
                 
         return total
     except:
-        print("BUST! - You have not held any scoring die")
+        print("\nBUST! - You have not held any scoring die!")
         return 0
 
 # play another game of Farkle.
@@ -215,20 +220,25 @@ while True:
                     roll = dice.rolled(p1_holding_count)
                     holding = holds.hold_die(roll)
                     p1_holding_count -= len(holding)
-                    p1_rolling_total += scoring_rolls(holding)
+                    rolled_score = scoring_rolls(holding)
+                    if rolled_score == 0:
+                        p1_rolls = False
+                        turn = "Player 2"
+                        break
+                    p1_rolling_total += rolled_score
                     if p1_holding_count == 0:
                         p1_holding_count = 6
                     print("\nThe current rolling total is: ",p1_rolling_total)
                     decision = str(input("Enter 'Y' to continue rolling or 'N' to bank the above amount... ").upper())
                     if decision == "N":
                         player1_total += p1_rolling_total
-                        if player1_total >= 10000:
+                        if player1_total >= 2000:
                             print("\n\nPlayer 1 is the winner!!!")
                             display_board(player1_total,player2_total)
                             turn = ""
                             break
                         else:
-                            p1_rolls= False
+                            p1_rolls = False
                             turn = "Player 2"
                             break
                     else:
@@ -250,14 +260,19 @@ while True:
                     roll = dice.rolled(p2_holding_count)
                     holding = holds.hold_die(roll)
                     p2_holding_count -= len(holding)
-                    p2_rolling_total += scoring_rolls(holding)
+                    rolled_score = scoring_rolls(holding)
+                    if rolled_score == 0:
+                        p2_rolls = False
+                        turn = "Player 1"
+                        break
+                    p2_rolling_total += rolled_score
                     if p2_holding_count == 0:
                         p2_holding_count = 6
                     print("\nThe current rolling total is: ",p2_rolling_total)
                     decision = str(input("Enter 'Y' to continue rolling or 'N' to bank the above amount... ").upper())
                     if decision == "N":
                         player2_total += p2_rolling_total
-                        if player2_total >= 10000:
+                        if player2_total >= 2000:
                             print("\n\nPlayer 2 is the winner!!!")
                             display_board(player1_total,player2_total)
                             turn = ""
