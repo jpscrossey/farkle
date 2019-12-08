@@ -232,7 +232,7 @@ while True:
                     decision = str(input("Enter 'Y' to continue rolling or 'N' to bank the above amount... ").upper())
                     if decision == "N":
                         player1_total += p1_rolling_total
-                        if player1_total >= 2000:
+                        if player1_total >= 10000:
                             print("\n\nPlayer 1 is the winner!!!")
                             display_board(player1_total,player2_total)
                             turn = ""
@@ -272,7 +272,7 @@ while True:
                     decision = str(input("Enter 'Y' to continue rolling or 'N' to bank the above amount... ").upper())
                     if decision == "N":
                         player2_total += p2_rolling_total
-                        if player2_total >= 2000:
+                        if player2_total >= 10000:
                             print("\n\nPlayer 2 is the winner!!!")
                             display_board(player1_total,player2_total)
                             turn = ""
