@@ -128,6 +128,10 @@ def scoring_rolls(list):
         if length == 2:
             if roll[0] == 1 and roll[1] == 5:
                 total += 150
+            elif roll[0] == 1 and roll[1] == 1:
+                total += 200
+            elif roll[0] == 5 and roll[1] == 5:
+                total += 100
 
         # Checks for all <6 die scoring combinations.
         elif length <6:
