@@ -69,17 +69,31 @@ class Holds():
     # Asks the player what die from the roll they wish to hold onto for scoring. 
     def hold_die(self,list):
         self.convert_holding = []
-        self.select = [int(self.select) for self.select in input("\nWhich die would you like to hold on to? Furthest left die is '1'. \nUse a space between each die number you're holding and then press 'Enter': ").split()]
-        self.selection = []
-        for n in self.select:
-            self.selection.append(n-1)
+        while True:
+            try:
+                self.select = [int(self.select) for self.select in input("\nWhich die would you like to hold on to? Furthest left die is '1'. \nUse a space between each die number you're holding and then press 'Enter': ").split()]
+            except:
+                # this returns an error message if someone enters something other than an integer - and allows them to try again. 
+                print("\nYou must enter an integer that corresponds to the number of dice rolled.  If you cannot hold a scoring die, just press 'Enter'")
+                continue
+            else:
+                break
         
-        self.hold = [list[i] for i in self.selection]
-        
-    # Creates list for scoring die being held, and converts into integer for sorting.
-        for i in self.hold:
-            self.convert_holding.append(numbers[i])
-        return sorted(self.convert_holding)
+        try:
+            self.selection = []
+            for n in self.select:
+                self.selection.append(n-1)
+
+            self.hold = [list[i] for i in self.selection]
+        except:
+            # this returns an error message the user entered an incorrect index number - and they forefit their turn.
+            print("\nUnfortunately you held an invalid die - mistakes can be costly!!!")
+            return []
+        else:
+            # Creates list for scoring die being held, and converts into integer for sorting.
+            for i in self.hold:
+                self.convert_holding.append(numbers[i])
+            return sorted(self.convert_holding)
 
 '''
 FUNCTIONS
@@ -137,7 +151,7 @@ def scoring_rolls(list):
                 
         return total
     except:
-        print("\nBUST! - You have not held any scoring die!")
+        print("\nBUST! - You have not held any or only scoring dice!")
         return 0
 
 # play another game of Farkle.
