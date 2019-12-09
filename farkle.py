@@ -116,22 +116,11 @@ def scoring_rolls(list):
                     dup_1.append(die)
                     counts = roll.count(die)
                     dup_2.append(counts)
-                list1 = []
-                list2 = []
-                [list1.append(x) for x in dup_1 if x not in list1]
-                [list2.append(y) for y in dup_2 if y not in list2]
-                merged_list = [(list1[i],list2[i]) for i in range(0,len(list1))]
-                for a,b in merged_list:
+                merged_list = [(dup_1[i],dup_2[i]) for i in range(0,len(dup_1))]
+                count_set = set(merged_list)
+                for a,b in count_set:
                     total += scores[a][b]
         
-        # fix for when a [1,5] is held.
-        if length == 2:
-            if roll[0] == 1 and roll[1] == 5:
-                total += 150
-            elif roll[0] == 1 and roll[1] == 1:
-                total += 200
-            elif roll[0] == 5 and roll[1] == 5:
-                total += 100
 
         # Checks for all <6 die scoring combinations.
         elif length <6:
@@ -141,12 +130,9 @@ def scoring_rolls(list):
                 dup_1.append(die)
                 counts = roll.count(die)
                 dup_2.append(counts)
-            list1 = []
-            list2 = []
-            [list1.append(x) for x in dup_1 if x not in list1]
-            [list2.append(y) for y in dup_2 if y not in list2]
-            merged_list = [(list1[i],list2[i]) for i in range(0,len(list1))]
-            for a,b in merged_list:
+            merged_list = [(dup_1[i],dup_2[i]) for i in range(0,len(dup_1))]
+            count_set = set(merged_list)
+            for a,b in count_set:
                 total += scores[a][b]
                 
         return total
