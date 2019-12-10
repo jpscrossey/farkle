@@ -226,6 +226,7 @@ while True:
                     p1_holding_count -= len(holding)
                     rolled_score = scoring_rolls(holding)
                     if rolled_score == 0:
+                        print("\nBUST! - You have not held any or only scoring dice!")
                         p1_rolls = False
                         turn = "Player 2"
                         break
@@ -266,6 +267,7 @@ while True:
                     p2_holding_count -= len(holding)
                     rolled_score = scoring_rolls(holding)
                     if rolled_score == 0:
+                        print("\nBUST! - You have not held any or only scoring dice!")
                         p2_rolls = False
                         turn = "Player 1"
                         break
