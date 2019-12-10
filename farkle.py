@@ -233,8 +233,8 @@ while True:
                     if p1_holding_count == 0:
                         p1_holding_count = 6
                     print("\nThe current rolling total is: ",p1_rolling_total)
-                    decision = str(input("Enter 'Y' to continue rolling or 'N' to bank the above amount... ").upper())
-                    if decision == "N":
+                    decision = str(input("Press 'Enter' to continue rolling or type 'Bank' to bank the above amount... ").capitalize())
+                    if decision == "Bank":
                         player1_total += p1_rolling_total
                         if player1_total >= 10000:
                             print("\n\nPlayer 1 is the winner!!!")
@@ -273,8 +273,8 @@ while True:
                     if p2_holding_count == 0:
                         p2_holding_count = 6
                     print("\nThe current rolling total is: ",p2_rolling_total)
-                    decision = str(input("Enter 'Y' to continue rolling or 'N' to bank the above amount... ").upper())
-                    if decision == "N":
+                    decision = str(input("Press 'Enter' to continue rolling or 'Bank' to bank the above amount... ").capitalize())
+                    if decision == "Bank":
                         player2_total += p2_rolling_total
                         if player2_total >= 10000:
                             print("\n\nPlayer 2 is the winner!!!")
