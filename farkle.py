@@ -3,7 +3,7 @@
 '''
 FARKLE PYTHON GAME
 
-Where players attempt to reach 10,000 points using x6 dice.
+Where players attempt to reach 5,000 points using x6 dice.
 Scoring using 'ONE' and 'FIVE' or a combination of die such as x3 or more of the same number, striaghts, triplets etc...
 
 Single Scoring Dice:
@@ -170,17 +170,13 @@ def first_turn():
         return "Player 2"
     else:
         return "Player 1"
-    
-# check for winner.
-def win_check():
-    if player1_total >= 10000:
-        print("\nPlayer 1 is the winner!!!\n")
-        display_board(player1_total,player2_total)
-        game_on = False
-    elif palyer2_total >= 10000:
-        print("\nWell done, Player 2 wins!!!\n")
-        display_board(player1_total,player2_total)
-        game_on = False
+
+# banking stats.
+def bank_stats():
+	p1_avg = player1_total / p1_bank_count
+	p2_avg = player2_total / p2_bank_count
+	print("\nPlayer 1 banked {} times, averageing {} per bank." .format(p1_bank_count,p1_avg))
+	print("Player 2 banked {} times, averageing {} per bank." .format(p2_bank_count,p2_avg))
 
     
 '''
@@ -188,7 +184,7 @@ GAMEPLAY
 '''
 
 while True:
-    print("\nWelcome to Farkle! The first person to bank over 10,000 points wins the game.\nYou can score on a single die or a combination of die:\n\nSingle Scoring Dice:\n'FIVE' = 50\n'ONE' = 100\n\nCombination Scoring Dice:\nx3 of the same dice = (number on dice * 100) [example: x3 of 3 = 300]\nx4 of any number = 1,000\nx5 of any number = 2,000\nx6 of any number = 3,000\n1-6 straight = 1,500\nthree pairs = 1,500\nx4 of any number with a pair = 1,500\ntwo triplets = 2,500")
+    print("\nWelcome to Farkle! The first person to bank over 5,000 points wins the game.\nYou can score on a single die or a combination of die:\n\nSingle Scoring Dice:\n'FIVE' = 50\n'ONE' = 100\n\nCombination Scoring Dice:\nx3 of the same dice = (number on dice * 100) [example: x3 of 3 = 300]\nx4 of any number = 1,000\nx5 of any number = 2,000\nx6 of any number = 3,000\n1-6 straight = 1,500\nthree pairs = 1,500\nx4 of any number with a pair = 1,500\ntwo triplets = 2,500")
     play_game = str(input("\nAre you ready to play...Y / N ? ").upper())
 
         
@@ -200,7 +196,9 @@ while True:
     player1_total = 0
     player2_total = 0
     rolling_total = 0 
-    
+    p1_bank_count = 0
+    p2_bank_count = 0
+	    
     turn = first_turn()
     print("\n"+turn+" will go first.")
        
@@ -237,9 +235,11 @@ while True:
                     decision = str(input("Press 'Enter' to continue rolling or type 'Bank' to bank the above amount... ").capitalize())
                     if decision == "Bank":
                         player1_total += p1_rolling_total
-                        if player1_total >= 10000:
+                        p1_bank_count += 1
+                        if player1_total >= 5000:
                             print("\n\nPlayer 1 is the winner!!!")
                             display_board(player1_total,player2_total)
+                            bank_stats()
                             turn = ""
                             break
                         else:
@@ -278,9 +278,11 @@ while True:
                     decision = str(input("Press 'Enter' to continue rolling or 'Bank' to bank the above amount... ").capitalize())
                     if decision == "Bank":
                         player2_total += p2_rolling_total
-                        if player2_total >= 10000:
+                        p2_bank_count += 1
+                        if player2_total >= 5000:
                             print("\n\nPlayer 2 is the winner!!!")
                             display_board(player1_total,player2_total)
+                            bank_stats()
                             turn = ""
                             break
                         else:
